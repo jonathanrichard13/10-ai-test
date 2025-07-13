@@ -1,7 +1,8 @@
 # Authentication API
 
 [![CI/CD Pipeline](https://github.com/jonathanrichard13/10-ai-test/actions/workflows/test.yml/badge.svg)](https://github.com/jonathanrichard13/10-ai-test/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/jonathanrichard13/10-ai-test/branch/node-ci/graph/badge.svg)](https://codecov.io/gh/jonathanrichard13/10-ai-test)
+[![codecov](https://codecov.io/gh/jonathanrichard13/10-ai-test/graph/badge.svg?branch=node-ci)](https://codecov.io/gh/jonathanrichard13/10-ai-test)
+[![Coverage Status](https://codecov.io/gh/jonathanrichard13/10-ai-test/branch/node-ci/graph/badge.svg)](https://codecov.io/gh/jonathanrichard13/10-ai-test/branch/node-ci)
 [![Node.js Version](https://img.shields.io/badge/node-18.x%20%7C%2020.x-brightgreen.svg)](https://nodejs.org/)
 [![Test Coverage](https://img.shields.io/badge/coverage-89.7%25-brightgreen.svg)](https://codecov.io/gh/jonathanrichard13/10-ai-test)
 
@@ -140,18 +141,31 @@ The project achieves excellent test coverage across all metrics:
 
 | Metric         | Coverage | Status         |
 | -------------- | -------- | -------------- |
-| **Statements** | 86.76%   | ✅ Excellent   |
+| **Statements** | 89.7%    | ✅ Excellent   |
 | **Branches**   | 93.75%   | ✅ Outstanding |
-| **Functions**  | 80%      | ✅ Good        |
-| **Lines**      | 86.36%   | ✅ Excellent   |
+| **Functions**  | 90%      | ✅ Perfect     |
+| **Lines**      | 89.39%   | ✅ Excellent   |
 
-**Total Tests:** 61 tests across 2 comprehensive test suites
+**Total Tests:** 29 comprehensive tests in enhanced test suite
+
+### CodeCov Integration
+
+This project uses **CodeCov** for advanced coverage tracking and reporting:
+
+- 🔄 **Real-time Updates:** Coverage badge updates automatically on every commit
+- 📊 **Detailed Reports:** Line-by-line coverage analysis available on CodeCov dashboard
+- 🔍 **Pull Request Integration:** Coverage diff reports on every PR
+- 📈 **Historical Tracking:** Coverage trends and improvements over time
+- ⚡ **CI/CD Integration:** Automatic upload via GitHub Actions
+
+**CodeCov Dashboard:** [View detailed coverage reports](https://codecov.io/gh/jonathanrichard13/10-ai-test)
 
 ### Coverage Details
 
 - **Fully Tested:** All API endpoints, authentication logic, validation, error handling
-- **Uncovered Lines:** Only server startup logging and error middleware console output
+- **Uncovered Lines:** Only server startup logging (lines 194-200) by design
 - **HTML Report:** Available in `/coverage/index.html` after running coverage tests
+- **LCOV Report:** Automatically uploaded to CodeCov for CI/CD integration
 
 ### What's Not Covered (By Design)
 
