@@ -1,11 +1,20 @@
 from fastapi.testclient import TestClient
 import sys
 import os
+import pytest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from main import app
+from main import app, users
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def clear_users():
+    """Clear users dictionary before each test"""
+    users.clear()
+    yield
+    users.clear()
 
 
 def test_add_user_success():
