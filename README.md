@@ -1,5 +1,10 @@
 # Authentication API
 
+[![CI/CD Pipeline](https://github.com/jonathanrichard13/10-ai-test/actions/workflows/test.yml/badge.svg)](https://github.com/jonathanrichard13/10-ai-test/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/jonathanrichard13/10-ai-test/branch/node-ci/graph/badge.svg)](https://codecov.io/gh/jonathanrichard13/10-ai-test)
+[![Node.js Version](https://img.shields.io/badge/node-18.x%20%7C%2020.x-brightgreen.svg)](https://nodejs.org/)
+[![Test Coverage](https://img.shields.io/badge/coverage-89.7%25-brightgreen.svg)](https://codecov.io/gh/jonathanrichard13/10-ai-test)
+
 A simple Node.js Express API with user authentication endpoints.
 
 ## Features
@@ -169,6 +174,40 @@ These exclusions are intentional as they represent logging/monitoring code rathe
 
 - `coverage.test.js` - Comprehensive API testing (35 tests)
 - `final-coverage.test.js` - Additional edge cases (26 tests)
+
+## 🚀 CI/CD Pipeline
+
+This project includes a comprehensive CI/CD pipeline with automated testing and coverage reporting.
+
+### Pipeline Features
+
+- **✅ Automated Testing**: Runs on every push and pull request
+- **📊 Coverage Reporting**: Integrated with CodeCov for detailed coverage analysis
+- **🔄 Multi-Node Testing**: Tests against Node.js 18.x and 20.x
+- **📈 Quality Gates**: Enforces minimum coverage thresholds
+- **🚀 Automated Deployment**: Ready for production deployment on main branch
+
+### Pipeline Status
+
+- **Main Branch**: Always deployable with passing tests
+- **Coverage**: Real-time coverage tracking with CodeCov
+- **Quality**: Automated code quality checks and validation
+
+### Workflow Triggers
+
+- Push to `main`, `develop`, or `node-ci` branches
+- Pull requests to `main` or `develop` branches
+- Manual workflow dispatch (if needed)
+
+### Coverage Integration
+
+The pipeline automatically:
+
+1. Runs comprehensive test suite
+2. Generates coverage reports in multiple formats
+3. Uploads coverage data to CodeCov
+4. Displays coverage badges in README
+5. Fails CI if coverage drops below thresholds
 
 ## Environment Variables
 

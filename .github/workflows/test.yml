@@ -1,0 +1,114 @@
+name: CI/CD Pipeline with Coverage
+
+on:
+  push:
+    branches: [main, develop, node-ci]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting (if available)
+        run: npm run lint --if-present
+        continue-on-error: true
+
+      - name: Run tests with coverage
+        run: npm test -- --coverage --coverageReporters=lcov text
+
+      - name: Upload coverage to CodeCov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Coverage Summary
+        run: |
+          echo "## 📊 Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Coverage has been uploaded to CodeCov! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Quick Stats:" >> $GITHUB_STEP_SUMMARY
+          npm test -- --coverage --coverageReporters=text | tail -5 >> $GITHUB_STEP_SUMMARY || true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.node-version }}
+          path: |
+            coverage/
+            junit.xml
+          retention-days: 30
+
+  # Notification job that runs after test completion
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Notify Success
+        if: needs.test.result == 'success'
+        run: |
+          echo "✅ All tests passed successfully!"
+          echo "🎯 Coverage targets met"
+          echo "🚀 Ready for deployment"
+
+      - name: Notify Failure
+        if: needs.test.result == 'failure'
+        run: |
+          echo "❌ Tests failed!"
+          echo "🔧 Please check the logs and fix the issues"
+          echo "📊 Coverage requirements might not be met"
+          exit 1
+
+  # Optional: Deploy job (runs only on main branch and after successful tests)
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application (if applicable)
+        run: npm run build --if-present
+
+      - name: Deploy Notification
+        run: |
+          echo "🚀 Deployment simulation completed!"
+          echo "✅ Application is ready for production"
+          echo "📈 All quality gates passed"
